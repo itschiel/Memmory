@@ -1,0 +1,19 @@
+.card{
+    width: 15vh;
+    height: 15vh;
+    background-color: brown;
+
+    border-style: solid;
+    border-color: black;
+    border-width: .5vh;
+}
+
+#test{
+    height: 500px;
+    width: 500px;
+}
+
+.card img{
+    height: 100%;
+    width: 100%;
+}
