@@ -1,19 +1,50 @@
 .card{
     width: 15vh;
     height: 15vh;
-    background-color: brown;
 
     border-style: solid;
     border-color: black;
     border-width: .5vh;
+
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+
+.card-flip{
+    transform: rotateY(180deg);
+    transition-duration: 1s;
 }
 
 #test{
     height: 500px;
     width: 500px;
+
+    transform: perspective(50px);
+
 }
 
-.card img{
+.card-face img{
     height: 100%;
     width: 100%;
+}
+
+
+.card-face{
+    height: 101%;
+    width: 101%;
+    position: absolute;
+    backface-visibility: hidden;
+
+    background-color: green;
+}
+
+.card-back{
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    backface-visibility: hidden;
+
+    background-color: brown;
+    transform: rotateY(180deg);
 }
