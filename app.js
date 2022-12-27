@@ -17,15 +17,6 @@ const Memmory = (() => {
         ricks.forEach(element => {
             console.log(element.image)
         });
-
-        // onderstaande moet in een aparte functie
-
-        const card = document.getElementsByClassName("card")[0];
-        const htmlImage = document.createElement("img");
-        htmlImage.src = ricks[0].image;
-
-        card.append(htmlImage);
-
     }
 
     return {
