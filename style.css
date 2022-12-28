@@ -38,9 +38,9 @@ memmory-card {
     height: 100%;
     width: 100%;
 
-    border-style: solid;
+    /* border-style: solid;
     border-color: black;
-    border-width: 5px;
+    border-width: 5px; */
 
     position: relative;
     transform: perspective(400px);
@@ -67,7 +67,7 @@ memmory-card {
     position: absolute;
     backface-visibility: hidden;
 
-    background-color: green;
+
 }
 
 .card-back{

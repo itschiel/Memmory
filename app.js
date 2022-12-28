@@ -76,11 +76,9 @@ const Memmory = (() => {
 
         if(Memmory.selectedCards[0].getAttribute("imageUrl") != Memmory.selectedCards[1].getAttribute("imageUrl")){
             console.log("unequal");
-            console.log(Memmory.selectedCards);
 
             Memmory.selectedCards[0].firstChild.classList.add("card-flip");
             Memmory.selectedCards[1].firstChild.classList.add("card-flip");
-
 
             Memmory.selectedCards = [];
             console.log(Memmory.selectedCards);
@@ -88,18 +86,19 @@ const Memmory = (() => {
             return
         }
         console.log("equal");
-        Memmory.selectedCards[0].remove();
-        Memmory.selectedCards[1].remove();
+
+        markCardAsFound(Memmory.selectedCards[0]);
+        markCardAsFound(Memmory.selectedCards[1]);
 
         Memmory.selectedCards = [];
-
-        console.log(Memmory.selectedCards);
     }
 
-    function delay(milliseconds){
-        return new Promise(resolve => {
-            setTimeout(resolve, milliseconds);
-        });
+    function markCardAsFound(memmoryCard){
+        memmoryCard.style.filter = "brightness(85%)";
+        memmoryCard.firstChild.style.width = "98%";
+        memmoryCard.firstChild.style.height = "98%";
+
+        memmoryCard.style.pointerEvents = "none";
     }
       
 
@@ -108,9 +107,9 @@ const Memmory = (() => {
         loadCards: loadCards,
         selectCard: selectCard,
         compareCards: compareCards,
-        delay: delay,
         selectedCards: selectedCards
     }
 
 
 })()
+
