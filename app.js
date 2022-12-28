@@ -12,7 +12,7 @@ const Memmory = (() => {
     }
 
     async function loadCards(amountOfCards){
-        let board = document.getElementById("board");
+        let board = document.getElementsByTagName("memmory-board")[0];
         let ricks = await fetchImageUrls();
         let cards = []
 
@@ -31,19 +31,14 @@ const Memmory = (() => {
 
         cards = shuffle(cards);
 
-        board.innerHTML = "";
+        board.clear();
 
-        setBoardSize(amountOfCards);
+        board.setSize(amountOfCards);
 
         cards.forEach(card => {
-            board.append(card);
+            board.addMemmoryCard(card);
         });
 
-    }
-
-    function setBoardSize(amountOfCards){
-        let board = document.getElementById("board");
-        board.style.width = `${(amountOfCards / 4) * 200}px`;
     }
 
     function shuffle(array) {
