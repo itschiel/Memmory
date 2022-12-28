@@ -1,9 +1,6 @@
 const Memmory = (() => {
-    console.log("hallo universe")
 
-    function fetchImages(){
-
-    }
+    let selectedCards = [];
 
     let apiUrl = "https://rickandmortyapi.com/api/character/?name=rick";
     
@@ -66,11 +63,53 @@ const Memmory = (() => {
       
         return array;
       }
+
+
+    function selectCard(card){
+        console.log("select");
+        Memmory.selectedCards.push(card);
+        console.log(Memmory.selectedCards);
+    }
+
+    async function compareCards(){
+        console.log("compare");
+
+        if(Memmory.selectedCards[0].getAttribute("imageUrl") != Memmory.selectedCards[1].getAttribute("imageUrl")){
+            console.log("unequal");
+            console.log(Memmory.selectedCards);
+
+            Memmory.selectedCards[0].firstChild.classList.add("card-flip");
+            Memmory.selectedCards[1].firstChild.classList.add("card-flip");
+
+
+            Memmory.selectedCards = [];
+            console.log(Memmory.selectedCards);
+
+            return
+        }
+        console.log("equal");
+        Memmory.selectedCards[0].remove();
+        Memmory.selectedCards[1].remove();
+
+        Memmory.selectedCards = [];
+
+        console.log(Memmory.selectedCards);
+    }
+
+    function delay(milliseconds){
+        return new Promise(resolve => {
+            setTimeout(resolve, milliseconds);
+        });
+    }
       
 
     return {
         fetchImages : fetchImageUrls,
-        loadCards: loadCards
+        loadCards: loadCards,
+        selectCard: selectCard,
+        compareCards: compareCards,
+        delay: delay,
+        selectedCards: selectedCards
     }
 
 

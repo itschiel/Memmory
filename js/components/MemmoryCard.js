@@ -19,7 +19,19 @@ class MemmoryCard extends HTMLElement {
         this.append(card);
 
         this.addEventListener("click", () => {
+            if(Memmory.isRunning){return};
+
             this.firstChild.classList.remove("card-flip");
+            Memmory.selectCard(this);
+
+            if(Memmory.selectedCards.length == 2){
+                Memmory.isRunning = true;
+                setTimeout(() => {
+                    Memmory.compareCards();
+                    Memmory.isRunning = false;
+                }, 1500);
+                return;
+            }
         });
     }
 
