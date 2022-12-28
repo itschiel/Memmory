@@ -21,7 +21,7 @@ class MemmoryCard extends HTMLElement {
         this.addEventListener("click", () => {
             if(Memmory.isRunning){return};
 
-            this.firstChild.classList.remove("card-flip");
+            this.flip();
             Memmory.selectCard(this);
 
             if(Memmory.selectedCards.length == 2){
@@ -37,6 +37,18 @@ class MemmoryCard extends HTMLElement {
 
     flip(){
         this.firstChild.classList.toggle("card-flip");
+    }
+
+    markAsFound(){
+        this.style.filter = "brightness(85%)";
+        this.firstChild.style.width = "98%";
+        this.firstChild.style.height = "98%";
+
+        this.style.pointerEvents = "none";
+    }
+
+    equals(MemmoryCard){
+        return this.getAttribute("imageUrl") == MemmoryCard.getAttribute("imageUrl");
     }
 
 }
