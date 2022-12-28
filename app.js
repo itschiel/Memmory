@@ -77,8 +77,8 @@ const Memmory = (() => {
         if(Memmory.selectedCards[0].getAttribute("imageUrl") != Memmory.selectedCards[1].getAttribute("imageUrl")){
             console.log("unequal");
 
-            Memmory.selectedCards[0].firstChild.classList.add("card-flip");
-            Memmory.selectedCards[1].firstChild.classList.add("card-flip");
+            Memmory.selectedCards[0].flip()
+            Memmory.selectedCards[1].flip();
 
             Memmory.selectedCards = [];
             console.log(Memmory.selectedCards);
@@ -109,7 +109,5 @@ const Memmory = (() => {
         compareCards: compareCards,
         selectedCards: selectedCards
     }
-
-
 })()
 

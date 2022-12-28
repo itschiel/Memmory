@@ -35,7 +35,9 @@ class MemmoryCard extends HTMLElement {
         });
     }
 
-
+    flip(){
+        this.firstChild.classList.toggle("card-flip");
+    }
 
 }
 
