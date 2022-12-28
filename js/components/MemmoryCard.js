@@ -2,23 +2,28 @@ class MemmoryCard extends HTMLElement {
 
     constructor() {
         super();
+    }
 
-        let cardElement = document.createElement("div");
-        cardElement.classList.add("card");
-        cardElement.classList.add("card-flip");
-        cardElement.innerHTML = `
+    connectedCallback(){        
+        let card = document.createElement("div");
+        card.classList.add("card");
+        card.classList.add("card-flip");
+
+        card.innerHTML = `
             <div class="card-face">
                 <img src="${this.getAttribute('imageUrl')}">
             </div>
             <div class="card-back"></div>
         `;
 
-        this.append(cardElement);
+        this.append(card);
 
         this.addEventListener("click", () => {
-            this.firstChild.classList.toggle("card-flip");
+            this.firstChild.classList.remove("card-flip");
         });
     }
+
+
 
 }
 

@@ -1,20 +1,49 @@
-#test{
-    height: 500px;
-    width: 500px;
+body {
+    height: 100vh;
+    width: 100vw;
 
-    transform: perspective(50px);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+
+    background-color: brown;
+
+}
+
+#board {
+    height: 800px;
+    width: 800px;
+    padding: 50px;
+    background-color: green;
+    
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    gap: 50px;
+
+    transition-duration: 2s;
+}
+
+memmory-card {
+    width: 150px;
+    height: 150px;
 }
 
 
 .card{
-    width: 15vh;
-    height: 15vh;
+    height: 100%;
+    width: 100%;
 
     border-style: solid;
     border-color: black;
-    border-width: .5vh;
+    border-width: 5px;
 
     position: relative;
+    transform: perspective(400px);
     transform-style: preserve-3d;
 
     transition-duration: 1s;
@@ -33,8 +62,8 @@
 
 
 .card-face{
-    height: 101%;
-    width: 101%;
+    height: 100%;
+    width: 100%;
     position: absolute;
     backface-visibility: hidden;
 
