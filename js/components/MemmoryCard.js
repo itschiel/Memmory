@@ -52,6 +52,10 @@ class MemmoryCard extends HTMLElement {
         }
     }
 
+    setImage(url){
+        this.setAttribute("imageUrl", url);
+    }
+
 }
 
 window.customElements.define(`memmory-card`, MemmoryCard);

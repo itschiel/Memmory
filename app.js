@@ -15,11 +15,11 @@ const Memmory = (() => {
 
             let imageUrl = ricks[i].image;
 
-            firstCard.setAttribute("imageUrl", imageUrl);
-            secondCard.setAttribute("imageUrl", imageUrl);
+            firstCard.setImage(imageUrl)
+            secondCard.setImage(imageUrl);
 
             board.addCard(firstCard);
-            board.addCard(secondCard)
+            board.addCard(secondCard);
         }
 
         board.shuffleCards();
