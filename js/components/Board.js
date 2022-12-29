@@ -24,6 +24,10 @@ class Board extends HTMLElement {
         }
     }
 
+    getSelectedCards(){
+        return this.getElementsByClassName("selected");
+    }
+
     
 }
 

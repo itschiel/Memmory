@@ -25,11 +25,17 @@ class MemmoryCard extends HTMLElement {
     }
 
     markAsFound(){
-        this.style.filter = "brightness(85%)";
-        this.firstChild.style.width = "98%";
-        this.firstChild.style.height = "98%";
+        this.classList.add("marked")
+    }
 
-        this.style.pointerEvents = "none";
+    select(){
+        this.classList.add("selected");
+        this.flip();
+    }
+
+    deSelect(){
+        this.classList.remove("selected");
+        this.flip();
     }
 
     equals(MemmoryCard){
@@ -39,17 +45,18 @@ class MemmoryCard extends HTMLElement {
     onClick(){
         if(Memmory.isRunning){return};
 
-        this.flip();
-        Memmory.selectCard(this);
+        this.select();
 
-        if(Memmory.selectedCards.length == 2){
-            Memmory.isRunning = true;
-            setTimeout(() => {
-                Memmory.compareCards();
-                Memmory.isRunning = false;
-            }, 1500);
-            return;
-        }
+        let board = document.getElementsByTagName("memmory-board")[0];
+        if(board.getSelectedCards().length != 2){return}
+
+        Memmory.isRunning = true;
+        setTimeout(() => {
+            Memmory.compareCards(board.getSelectedCards()[0], board.getSelectedCards()[1]);
+            Memmory.isRunning = false;
+        }, 1500);
+
+        return;
     }
 
     setImage(url){

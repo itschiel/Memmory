@@ -1,7 +1,5 @@
 const Memmory = (() => {
 
-    let selectedCards = [];
-
     async function loadCards(amountOfCards){
         let board = document.getElementsByTagName("memmory-board")[0];
         let ricks = await Memmory.Data.getImageUrls();
@@ -32,34 +30,23 @@ const Memmory = (() => {
         console.log(Memmory.selectedCards);
     }
 
-    async function compareCards(){
-        console.log("compare");
+    async function compareCards(card1, card2){
 
-        if(!Memmory.selectedCards[0].equals(Memmory.selectedCards[1])){
-            console.log("unequal");
-
-            Memmory.selectedCards[0].flip()
-            Memmory.selectedCards[1].flip();
-
-            Memmory.selectedCards = [];
-            console.log(Memmory.selectedCards);
-
+        if(!card1.equals(card2)){
+            card1.deSelect()
+            card2.deSelect();
             return
         }
-        console.log("equal");
 
-        Memmory.selectedCards[0].markAsFound();
-        Memmory.selectedCards[1].markAsFound();
-
-        Memmory.selectedCards = [];
+        card1.markAsFound();
+        card2.markAsFound();
     }
       
 
     return {
         loadCards: loadCards,
         selectCard: selectCard,
-        compareCards: compareCards,
-        selectedCards: selectedCards
+        compareCards: compareCards
     }
 })()
 

@@ -79,3 +79,13 @@ memmory-card {
     background-color: brown;
     transform: rotateY(180deg);
 }
+
+.marked {
+    filter: brightness(85%);
+    pointer-events: none;
+}
+
+.marked div {
+    width: 98%;
+    height: 98%;
+}
