@@ -4,11 +4,11 @@ class MemmoryCard extends HTMLElement {
         super();
     }
 
-    connectedCallback(){        
+    connectedCallback(){  
         let card = document.createElement("div");
+
         card.classList.add("card");
         card.classList.add("card-flip");
-
         card.innerHTML = `
             <div class="card-face">
                 <img src="${this.getAttribute('imageUrl')}">
@@ -17,22 +17,7 @@ class MemmoryCard extends HTMLElement {
         `;
 
         this.append(card);
-
-        this.addEventListener("click", () => {
-            if(Memmory.isRunning){return};
-
-            this.flip();
-            Memmory.selectCard(this);
-
-            if(Memmory.selectedCards.length == 2){
-                Memmory.isRunning = true;
-                setTimeout(() => {
-                    Memmory.compareCards();
-                    Memmory.isRunning = false;
-                }, 1500);
-                return;
-            }
-        });
+        this.addEventListener("click", this.onClick);
     }
 
     flip(){
@@ -49,6 +34,22 @@ class MemmoryCard extends HTMLElement {
 
     equals(MemmoryCard){
         return this.getAttribute("imageUrl") == MemmoryCard.getAttribute("imageUrl");
+    }
+
+    onClick(){
+        if(Memmory.isRunning){return};
+
+        this.flip();
+        Memmory.selectCard(this);
+
+        if(Memmory.selectedCards.length == 2){
+            Memmory.isRunning = true;
+            setTimeout(() => {
+                Memmory.compareCards();
+                Memmory.isRunning = false;
+            }, 1500);
+            return;
+        }
     }
 
 }

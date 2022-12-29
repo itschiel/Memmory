@@ -2,41 +2,27 @@ const Memmory = (() => {
 
     let selectedCards = [];
 
-    let apiUrl = "https://rickandmortyapi.com/api/character/?name=rick";
-    
-    async function fetchImageUrls(){
-        let request = await fetch(apiUrl);
-        let response = await request.json();
-
-        return response.results;
-    }
-
     async function loadCards(amountOfCards){
         let board = document.getElementsByTagName("memmory-board")[0];
-        let ricks = await fetchImageUrls();
-        let cards = []
+        let ricks = await Memmory.Data.getImageUrls();
+
+        board.clear();
+        board.setSize(amountOfCards);
 
         for (let i = 0; i < (amountOfCards / 2); i++) {
             let firstCard = document.createElement("memmory-card");
-            let seccondCard = document.createElement("memmory-card");
+            let secondCard = document.createElement("memmory-card");
 
             let imageUrl = ricks[i].image;
 
             firstCard.setAttribute("imageUrl", imageUrl);
-            seccondCard.setAttribute("imageUrl", imageUrl);
+            secondCard.setAttribute("imageUrl", imageUrl);
 
-            cards.push(firstCard);
-            cards.push(seccondCard);
+            board.addCard(firstCard);
+            board.addCard(secondCard)
         }
 
-        board.clear();
-
-        board.setSize(amountOfCards);
-
-        cards.forEach(card => {
-            board.addCard(card);
-        });
-
+        board.shuffleCards();
     }
 
 
@@ -70,7 +56,6 @@ const Memmory = (() => {
       
 
     return {
-        fetchImages : fetchImageUrls,
         loadCards: loadCards,
         selectCard: selectCard,
         compareCards: compareCards,
@@ -78,3 +63,19 @@ const Memmory = (() => {
     }
 })()
 
+
+Memmory.Data = (() => {
+    
+    async function getImageUrls(){
+        let request = await fetch("https://rickandmortyapi.com/api/character/?name=rick");
+        let response = await request.json();
+
+        return response.results;
+    }
+
+
+    return {
+        getImageUrls: getImageUrls
+    }
+
+})()
