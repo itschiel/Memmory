@@ -7,6 +7,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    align-items: center;
+    gap: 25px;
 
     background-color: brown;
 
@@ -88,4 +90,36 @@ memmory-card {
 .marked div {
     width: 98%;
     height: 98%;
+}
+
+score-board {
+    width: fit-content;
+    height: 50px;
+
+    padding: 0 20px 0 20px;
+
+    background-color: whitesmoke;
+    border-style: solid;
+    border-color: #36454f;
+    border-radius: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.score {
+    font-size: 2rem;
+    font-weight: bold;
+
+    padding: 5px;
+}
+
+.score-devider {
+    font-size: 2rem;
+    font-weight: bolder;
+    color: #36454f;
+
+    padding: 5px;
 }

@@ -1,5 +1,34 @@
 const Memmory = (() => {
 
+    const elements = {
+        scoreBoard: document.getElementsByTagName('score-board')[0],
+        cardBoard:  document.getElementsByTagName('memmory-board')[0]
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        new Memmory.player("blue");
+        new Memmory.player("red");
+
+        loadCards(16);
+        loadScoreBoard();
+
+    });
+
+
+
+
+
+
+
+
+    function loadScoreBoard(){
+        Memmory.player.players.forEach(player => {
+            elements.scoreBoard.addPlayer(player);
+        });
+    }
+
+
     async function loadCards(amountOfCards){
         let board = document.getElementsByTagName("memmory-board")[0];
         let ricks = await Memmory.Data.getImageUrls();
@@ -43,6 +72,9 @@ const Memmory = (() => {
 })()
 
 
+
+
+
 Memmory.Data = (() => {
     
     async function getImageUrls(){
@@ -56,5 +88,24 @@ Memmory.Data = (() => {
     return {
         getImageUrls: getImageUrls
     }
+
+})()
+
+
+Memmory.player = (() => {
+
+    class Player {
+
+        static players = [];
+
+        constructor(color){
+            this.color = color;
+            this.number = Player.players.length;
+            Player.players.push(this);
+        }
+
+    }
+
+    return Player;
 
 })()

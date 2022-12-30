@@ -26,9 +26,7 @@ class Board extends HTMLElement {
 
     getSelectedCards(){
         return this.getElementsByClassName("selected");
-    }
-
-    
+    }    
 }
 
 window.customElements.define(`memmory-board`, Board)
