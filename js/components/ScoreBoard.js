@@ -6,6 +6,12 @@ class ScoreBoard extends HTMLElement {
         super();
     }
 
+    update(player){
+        console.log(player.number);
+        let playerScore = this.querySelector(`[player="${player.number}"]`);
+        playerScore.innerHTML = player.score;
+    }
+
 
     addPlayer(player){
         let slot = document.createElement(`span`);

@@ -5,6 +5,8 @@ const Memmory = (() => {
         cardBoard:  document.getElementsByTagName('memmory-board')[0]
     }
 
+    let turn = '';
+
     document.addEventListener("DOMContentLoaded", () => {
 
         new Memmory.player("blue");
@@ -13,12 +15,23 @@ const Memmory = (() => {
         loadCards(16);
         loadScoreBoard();
 
+        Memmory.turn = Memmory.player.players[0];
+
     });
 
 
 
 
 
+    function nextPlayer(){
+        let playerAmount = Memmory.player.players.length;
+        let currentIndex = Memmory.turn.number;
+        let nextIndex = ++currentIndex;
+
+        if (nextIndex > (playerAmount - 1)){nextIndex = 0;}
+
+        return Memmory.player.players[nextIndex];
+    }
 
 
 
@@ -57,17 +70,25 @@ const Memmory = (() => {
         if(!card1.equals(card2)){
             card1.deSelect()
             card2.deSelect();
+
+            Memmory.turn = nextPlayer();
+            document.body.style.backgroundColor = Memmory.turn.color;
+
             return
         }
 
         card1.markAsFound();
         card2.markAsFound();
+
+        Memmory.turn.score += 1;
+        elements.scoreBoard.update(Memmory.turn);
     }
       
 
     return {
         loadCards: loadCards,
-        compareCards: compareCards
+        compareCards: compareCards,
+        turn: turn
     }
 })()
 
@@ -101,6 +122,7 @@ Memmory.player = (() => {
         constructor(color){
             this.color = color;
             this.number = Player.players.length;
+            this.score = 0;
             Player.players.push(this);
         }
 
