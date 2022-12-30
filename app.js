@@ -23,13 +23,6 @@ const Memmory = (() => {
         board.shuffleCards();
     }
 
-
-    function selectCard(card){
-        console.log("select");
-        Memmory.selectedCards.push(card);
-        console.log(Memmory.selectedCards);
-    }
-
     async function compareCards(card1, card2){
 
         if(!card1.equals(card2)){
@@ -45,7 +38,6 @@ const Memmory = (() => {
 
     return {
         loadCards: loadCards,
-        selectCard: selectCard,
         compareCards: compareCards
     }
 })()

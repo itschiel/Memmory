@@ -25,7 +25,8 @@ class MemmoryCard extends HTMLElement {
     }
 
     markAsFound(){
-        this.classList.add("marked")
+        this.classList.add("marked");
+        this.classList.remove("selected");
     }
 
     select(){
