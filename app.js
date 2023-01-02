@@ -132,7 +132,6 @@ const Memmory = (() => {
         let ricks = await Memmory.Data.getImageUrls();
 
         board.clear();
-        board.setSize(amountOfCards);
 
         for (let i = 0; i < (amountOfCards / 2); i++) {
             let firstCard = document.createElement("memmory-card");
