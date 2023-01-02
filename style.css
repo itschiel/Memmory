@@ -18,7 +18,7 @@ main {
 
 memmory-board {
     height: 800px;
-    width: 800px;
+    width: 100%;
     padding: 50px;
     background-color: green;
     
@@ -28,8 +28,6 @@ memmory-board {
     align-content: center;
     justify-content: center;
     gap: 50px;
-
-    transition-duration: 2s;
 }
 
 memmory-card {

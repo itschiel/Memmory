@@ -12,10 +12,6 @@ class Board extends HTMLElement {
         this.innerHTML = "";
     }
 
-    setSize(amountOfCards){
-        this.style.width = `${(amountOfCards / 4) * 200}px`;
-    }
-
     shuffleCards(){
         for (var i = this.children.length; i >= 0; i--) {
             let element = this.children[Math.floor(Math.random() * i)]; //
@@ -32,7 +28,6 @@ class Board extends HTMLElement {
         let cards = this.children;
 
         for (let i = 0; i < cards.length; i++) {
-            // console.log(cards[i].classList.contains(`marked`));
             if (!cards[i].classList.contains("marked")) {return false}
         }
 
