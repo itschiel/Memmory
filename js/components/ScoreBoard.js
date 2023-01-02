@@ -37,6 +37,20 @@ class ScoreBoard extends HTMLElement {
     clear(){
         this.innerHTML = "";
     }
+
+    select(player){
+        let slot = this.querySelector(`[player="${player.number}"]`);
+
+        slot.style.color = "white";
+        slot.style.backgroundColor = player.color;
+    }
+
+    deSelect(player){
+        let slot = this.querySelector(`[player="${player.number}"]`);
+
+        slot.style.color = player.color;
+        slot.style.backgroundColor = "rgb(200, 200, 200)";
+    }
 }
 
 window.customElements.define(`score-board`, ScoreBoard);

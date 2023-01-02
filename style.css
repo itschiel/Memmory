@@ -9,9 +9,6 @@ body {
     align-content: center;
     align-items: center;
     gap: 25px;
-
-    background-color: brown;
-
 }
 
 memmory-board {
@@ -39,10 +36,6 @@ memmory-card {
 .card{
     height: 100%;
     width: 100%;
-
-    /* border-style: solid;
-    border-color: black;
-    border-width: 5px; */
 
     position: relative;
     transform: perspective(400px);
@@ -98,7 +91,7 @@ score-board {
 
     padding: 0 20px 0 20px;
 
-    background-color: whitesmoke;
+    background-color: rgb(200, 200, 200);
     border-style: solid;
     border-color: #36454f;
     border-radius: 10px;
@@ -110,10 +103,16 @@ score-board {
 }
 
 .score {
+    width: 1.5rem;
+    text-align: center;
+
     font-size: 2rem;
     font-weight: bold;
 
     padding: 5px;
+
+
+    border-radius: 5px;
 }
 
 .score-devider {
@@ -122,6 +121,41 @@ score-board {
     color: #36454f;
 
     padding: 5px;
+}
+
+#config {
+    width: fit-content;
+    height: 50px;
+
+    padding: 20px 20px 20px 0;
+
+    background-color: rgb(200, 200, 200);
+    border-style: solid;
+    border-color: #36454f;
+    border-radius: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+
+    gap: 20px;
+    padding: 20px;
+}
+
+input {
+    height: 50px;
+    width: 50px;
+
+    font-size: 1.5rem;
+    text-align: center;
+    align-self: center;
+
+}
+
+label {
+    text-align: center;
+    font-size: 1.5rem;
 }
 
 #restart {
@@ -134,4 +168,14 @@ score-board {
 
     border-style: none;
     border-radius: 10px;
+
+    align-self: center;
+
+    margin-left: 50px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

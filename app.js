@@ -14,25 +14,36 @@ const Memmory = (() => {
 
 
     function setupGame(){
-        new Memmory.player("blue");
-        new Memmory.player("red");
 
-        loadCards(16);
+        for (let i = 0; i < Memmory.config.amoutnOfPlayers; i++) {
+            let color = Memmory.Data.colors[i];
+            new Memmory.player(color);        
+        }
+
+        loadCards(Memmory.config.amountOfCards);
         loadScoreBoard();
 
         Memmory.turn = Memmory.player.players[0];
+        elements.scoreBoard.select(Memmory.turn);
     }
 
     function restartGame(){
-        loadCards(16);
 
-        Memmory.player.players.forEach(player => {
-            player.resetScore();
-        });
+        Memmory.config.load();
+
+        loadCards(Memmory.config.amountOfCards);
+
+        Memmory.player.players = []
+
+        for (let i = 0; i < Memmory.config.amoutnOfPlayers; i++) {
+            let color = Memmory.Data.colors[i];
+            new Memmory.player(color);        
+        }
 
         loadScoreBoard();
 
         Memmory.turn = Memmory.player.players[0];
+        elements.scoreBoard.select(Memmory.turn);
     }
 
 
@@ -89,8 +100,9 @@ const Memmory = (() => {
             card1.deSelect()
             card2.deSelect();
 
+            elements.scoreBoard.deSelect(Memmory.turn);
             Memmory.turn = nextPlayer();
-            document.body.style.backgroundColor = Memmory.turn.color;
+            elements.scoreBoard.select(Memmory.turn);
 
             return
         }
@@ -128,9 +140,38 @@ Memmory.Data = (() => {
         return response.results;
     }
 
+    const colors = [
+        '#dc2626', '#f97316', '#eab308', '#22c55e', '#0d9488', '#0ea5e9', '#6366f1', '#9333ea'
+    ];
+
 
     return {
-        getImageUrls: getImageUrls
+        getImageUrls: getImageUrls,
+        colors: colors
+    }
+
+})()
+
+Memmory.config = (() => {
+
+    const elements = {
+        cardInput: document.getElementById('sets'),
+        playerInput: document.getElementById('player')
+    }
+    
+    let amountOfCards = 16;
+    let amoutnOfPlayers = 2;
+
+    function load(){
+        Memmory.config.amountOfCards = elements.cardInput.value * 2;
+        Memmory.config.amoutnOfPlayers = parseInt(elements.playerInput.value);
+    }
+
+
+    return {
+        amountOfCards,
+        amoutnOfPlayers,
+        load: load
     }
 
 })()
