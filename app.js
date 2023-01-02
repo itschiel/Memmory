@@ -24,9 +24,9 @@ const Memmory = (() => {
 
         if (inGamePlayers <= 1) {restartGame()}
 
-        elements.pairScoreBoard.deSelect(Memmory.turn)
+        elements.pairScoreBoard.toggleSlot(Memmory.turn.number);
         Memmory.turn = nextPlayer();
-        elements.pairScoreBoard.select(Memmory.turn);
+        elements.pairScoreBoard.toggleSlot(Memmory.turn.number);
     });
 
 
@@ -44,7 +44,7 @@ const Memmory = (() => {
         loadpairScoreBoard();
 
         Memmory.turn = Memmory.player.players[0];
-        elements.pairScoreBoard.select(Memmory.turn);
+        elements.pairScoreBoard.toggleSlot(Memmory.turn.number);
     }
 
     function restartGame(){
@@ -61,7 +61,7 @@ const Memmory = (() => {
         loadpairScoreBoard();
 
         Memmory.turn = Memmory.player.players[0];
-        elements.pairScoreBoard.select(Memmory.turn);
+        elements.pairScoreBoard.toggleSlot(Memmory.turn.number);
     }
 
     function loadConfig(){
@@ -83,7 +83,7 @@ const Memmory = (() => {
         loadpairScoreBoard();
 
         Memmory.turn = Memmory.player.players[0];
-        elements.pairScoreBoard.select(Memmory.turn);
+        elements.pairScoreBoard.toggleSlot(Memmory.turn.number);
     }
 
 
@@ -114,7 +114,7 @@ const Memmory = (() => {
         elements.pairScoreBoard.clear();
 
         Memmory.player.players.forEach(player => {
-            elements.pairScoreBoard.addPlayer(player);
+            elements.pairScoreBoard.addPlayerSlot(player);
         });
     }
 
@@ -122,7 +122,7 @@ const Memmory = (() => {
         elements.gameScoreBoard.clear();
 
         Memmory.player.players.forEach(player => {
-            elements.gameScoreBoard.addPlayer(player);
+            elements.gameScoreBoard.addPlayerSlot(player);
         });
     }
 
@@ -155,14 +155,14 @@ const Memmory = (() => {
             card1.deSelect()
             card2.deSelect();
 
-            elements.pairScoreBoard.deSelect(Memmory.turn);
+            elements.pairScoreBoard.toggleSlot(Memmory.turn.number);
 
             Memmory.turn = nextPlayer();
             while (Memmory.turn.state == "resigned") {
                 Memmory.turn = nextPlayer();
             }
 
-            elements.pairScoreBoard.select(Memmory.turn);
+            elements.pairScoreBoard.toggleSlot(Memmory.turn.number);
 
             return
         }
@@ -186,12 +186,12 @@ const Memmory = (() => {
             setTimeout(() => {
                 winScreen.remove();
                 winner.gameScore++;
-                elements.gameScoreBoard.update(winner, winner.gameScore)
+                elements.gameScoreBoard.setSlotValue(winner.number, winner.gameScore)
                 restartGame();
             }, 5000);
         }
 
-        elements.pairScoreBoard.update(Memmory.turn, Memmory.turn.score);
+        elements.pairScoreBoard.setSlotValue(Memmory.turn.number, Memmory.turn.score);
     }
       
 

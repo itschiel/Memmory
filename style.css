@@ -107,14 +107,14 @@ score-board {
 
 .score {
     width: 1.5rem;
-    text-align: center;
 
     font-size: 2rem;
     font-weight: bold;
+    color: black;
+
+    text-align: center;
 
     padding: 5px;
-
-
     border-radius: 5px;
 }
 

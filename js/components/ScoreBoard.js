@@ -1,29 +1,19 @@
 class ScoreBoard extends HTMLElement {
 
-    const 
-
     constructor(){
         super();
     }
 
-    update(player, value){
-        let playerScore = this.querySelector(`[player="${player.number}"]`);
-        playerScore.innerHTML = value;
-    }
+    slots = this.getElementsByTagName("score-board-slot");
 
+    addPlayerSlot(player){
+        let slot = document.createElement(`score-board-slot`);
 
-    addPlayer(player){
-        let slot = document.createElement(`span`);
-
-        slot.classList.add('score');
-        slot.setAttribute('player', player.number);
-        slot.style.color = player.color;
-        slot.innerHTML = 0;
+        slot.setColor(player.color);
 
         if (this.children.length > 0){this.addDevider()}
 
         this.append(slot);
-
     }
 
     addDevider(){
@@ -34,22 +24,16 @@ class ScoreBoard extends HTMLElement {
         this.append(devider);
     }
 
+    toggleSlot(index){
+        this.slots[index].toggle();
+    }
+
+    setSlotValue(index, value){
+        this.slots[index].setValue(value);
+    }
+
     clear(){
         this.innerHTML = "";
-    }
-
-    select(player){
-        let slot = this.querySelector(`[player="${player.number}"]`);
-
-        slot.style.color = "white";
-        slot.style.backgroundColor = player.color;
-    }
-
-    deSelect(player){
-        let slot = this.querySelector(`[player="${player.number}"]`);
-
-        slot.style.color = player.color;
-        slot.style.backgroundColor = "rgb(200, 200, 200)";
     }
 }
 
