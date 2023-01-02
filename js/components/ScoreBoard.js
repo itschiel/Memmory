@@ -7,7 +7,6 @@ class ScoreBoard extends HTMLElement {
     }
 
     update(player){
-        console.log(player.number);
         let playerScore = this.querySelector(`[player="${player.number}"]`);
         playerScore.innerHTML = player.score;
     }
@@ -15,7 +14,6 @@ class ScoreBoard extends HTMLElement {
 
     addPlayer(player){
         let slot = document.createElement(`span`);
-        let number = this.getElementsByClassName("score").length;
 
         slot.classList.add('score');
         slot.setAttribute('player', player.number);
@@ -34,6 +32,10 @@ class ScoreBoard extends HTMLElement {
         devider.innerHTML = `/`;
 
         this.append(devider);
+    }
+
+    clear(){
+        this.innerHTML = "";
     }
 }
 

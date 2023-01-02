@@ -26,7 +26,18 @@ class Board extends HTMLElement {
 
     getSelectedCards(){
         return this.getElementsByClassName("selected");
-    }    
+    } 
+    
+    allCardsFound() {
+        let cards = this.children;
+
+        for (let i = 0; i < cards.length; i++) {
+            // console.log(cards[i].classList.contains(`marked`));
+            if (!cards[i].classList.contains("marked")) {return false}
+        }
+
+        return true
+    }
 }
 
 window.customElements.define(`memmory-board`, Board)

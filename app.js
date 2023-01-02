@@ -2,13 +2,18 @@ const Memmory = (() => {
 
     const elements = {
         scoreBoard: document.getElementsByTagName('score-board')[0],
-        cardBoard:  document.getElementsByTagName('memmory-board')[0]
+        cardBoard:  document.getElementsByTagName('memmory-board')[0],
+        restartButton: document.getElementById("restart")
     }
 
     let turn = '';
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", setupGame);
 
+    elements.restartButton.addEventListener("click", restartGame);
+
+
+    function setupGame(){
         new Memmory.player("blue");
         new Memmory.player("red");
 
@@ -16,8 +21,19 @@ const Memmory = (() => {
         loadScoreBoard();
 
         Memmory.turn = Memmory.player.players[0];
+    }
 
-    });
+    function restartGame(){
+        loadCards(16);
+
+        Memmory.player.players.forEach(player => {
+            player.resetScore();
+        });
+
+        loadScoreBoard();
+
+        Memmory.turn = Memmory.player.players[0];
+    }
 
 
 
@@ -36,6 +52,8 @@ const Memmory = (() => {
 
 
     function loadScoreBoard(){
+        elements.scoreBoard.clear();
+
         Memmory.player.players.forEach(player => {
             elements.scoreBoard.addPlayer(player);
         });
@@ -81,6 +99,11 @@ const Memmory = (() => {
         card2.markAsFound();
 
         Memmory.turn.score += 1;
+
+        if (elements.cardBoard.allCardsFound()) {
+            restartGame();
+        }
+
         elements.scoreBoard.update(Memmory.turn);
     }
       
@@ -124,6 +147,10 @@ Memmory.player = (() => {
             this.number = Player.players.length;
             this.score = 0;
             Player.players.push(this);
+        }
+
+        resetScore(){
+            this.score = 0;
         }
 
     }
