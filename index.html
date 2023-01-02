@@ -9,20 +9,24 @@
     <script src="./js/components/MemmoryCard.js"></script>
     <script src="./js/components/Board.js"></script>
     <script src="./js/components/ScoreBoard.js"></script>
+    <script src="./js/components/winScreen.js"></script>
 </head>
-<body>
-    <score-board></score-board>
-    <memmory-board></memmory-board>
-    <div id="config">
-        <label for="sets"><p>Sets of cards</p></label>
-        <input type="number" min="2" max="20" value="8" id="sets"/>
-
-        <label for="players"><p>Players</p></label>
-        <input type="number" min="2" max="8" value="2" id="player">
-
-        <button id= "restart">Restart</button>
-        <button id= "resign">Resign</button>
-    </div>
+<body>    
+    <main>
+        <score-board></score-board>
+        <memmory-board></memmory-board>
+        <div id="config">
+            
+            <label for="sets"><p>Sets of cards</p></label>
+            <input type="number" min="2" max="20" value="8" id="sets"/>
+            
+            <label for="players"><p>Players</p></label>
+            <input type="number" min="2" max="8" value="2" id="player">
+            
+            <button id= "restart">Restart</button>
+            <button id= "resign">Resign</button>
+        </div>
+    </main>
 </body>
-<script src="app.js"></script>
+    <script src="app.js"></script>
 </html>

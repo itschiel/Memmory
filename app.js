@@ -143,7 +143,20 @@ const Memmory = (() => {
         Memmory.turn.score += 1;
 
         if (elements.cardBoard.allCardsFound()) {
-            restartGame();
+            let winScreen = document.createElement("memmory-win-screen");
+            let winner = Memmory.player.players[0];
+
+            Memmory.player.players.forEach(player => {
+                if (player.score > winner.score) {winner = player}
+            });
+
+            winScreen.setWinner(winner);
+            document.body.append(winScreen);
+
+            setTimeout(() => {
+                winScreen.remove();
+                restartGame();
+            }, 5000);
         }
 
         elements.scoreBoard.update(Memmory.turn);
