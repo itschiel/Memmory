@@ -6,9 +6,9 @@ class ScoreBoard extends HTMLElement {
         super();
     }
 
-    update(player){
+    update(player, value){
         let playerScore = this.querySelector(`[player="${player.number}"]`);
-        playerScore.innerHTML = player.score;
+        playerScore.innerHTML = value;
     }
 
 

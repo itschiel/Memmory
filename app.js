@@ -1,9 +1,10 @@
 const Memmory = (() => {
 
     const elements = {
-        scoreBoard: document.getElementsByTagName('score-board')[0],
+        gameScoreBoard: document.getElementById("game-score"),
+        pairScoreBoard: document.getElementById("pair-score"),
         cardBoard:  document.getElementsByTagName('memmory-board')[0],
-        restartButton: document.getElementById("restart"),
+        loadConfigButton: document.getElementById("load-config"),
         resignButton: document.getElementById("resign")
     }
 
@@ -11,7 +12,7 @@ const Memmory = (() => {
 
     document.addEventListener("DOMContentLoaded", setupGame);
 
-    elements.restartButton.addEventListener("click", restartGame);
+    elements.loadConfigButton.addEventListener("click", loadConfig);
 
     elements.resignButton.addEventListener("click", () => {
         Memmory.turn.remise();
@@ -23,25 +24,27 @@ const Memmory = (() => {
 
         if (inGamePlayers <= 1) {restartGame()}
 
-        elements.scoreBoard.deSelect(Memmory.turn)
+        elements.pairScoreBoard.deSelect(Memmory.turn)
         Memmory.turn = nextPlayer();
-        elements.scoreBoard.select(Memmory.turn);
+        elements.pairScoreBoard.select(Memmory.turn);
     });
 
 
 
     function setupGame(){
 
-        for (let i = 0; i < Memmory.config.amoutnOfPlayers; i++) {
+        for (let i = 0; i < Memmory.config.amountOfPlayers; i++) {
             let color = Memmory.Data.colors[i];
             new Memmory.player(color);        
         }
 
         loadCards(Memmory.config.amountOfCards);
-        loadScoreBoard();
+
+        loadGameScoreBoard();
+        loadpairScoreBoard();
 
         Memmory.turn = Memmory.player.players[0];
-        elements.scoreBoard.select(Memmory.turn);
+        elements.pairScoreBoard.select(Memmory.turn);
     }
 
     function restartGame(){
@@ -50,17 +53,37 @@ const Memmory = (() => {
 
         loadCards(Memmory.config.amountOfCards);
 
-        Memmory.player.players = []
 
-        for (let i = 0; i < Memmory.config.amoutnOfPlayers; i++) {
-            let color = Memmory.Data.colors[i];
-            new Memmory.player(color);        
+        for (let i = 0; i < Memmory.config.amountOfPlayers; i++) {
+            Memmory.player.players[i].score = 0;
         }
 
-        loadScoreBoard();
+        loadpairScoreBoard();
 
         Memmory.turn = Memmory.player.players[0];
-        elements.scoreBoard.select(Memmory.turn);
+        elements.pairScoreBoard.select(Memmory.turn);
+    }
+
+    function loadConfig(){
+        Memmory.config.load();
+        
+        loadCards(Memmory.config.amountOfCards);
+
+        if(Memmory.config.amountOfPlayers != Memmory.player.players.length){
+            Memmory.player.players = [];
+            for (let i = 0; i < Memmory.config.amountOfPlayers; i++) {
+                let color = Memmory.Data.colors[i];
+                new Memmory.player(color);   
+            }
+
+            loadGameScoreBoard();
+        }
+
+
+        loadpairScoreBoard();
+
+        Memmory.turn = Memmory.player.players[0];
+        elements.pairScoreBoard.select(Memmory.turn);
     }
 
 
@@ -87,11 +110,19 @@ const Memmory = (() => {
 
 
 
-    function loadScoreBoard(){
-        elements.scoreBoard.clear();
+    function loadpairScoreBoard(){
+        elements.pairScoreBoard.clear();
 
         Memmory.player.players.forEach(player => {
-            elements.scoreBoard.addPlayer(player);
+            elements.pairScoreBoard.addPlayer(player);
+        });
+    }
+
+    function loadGameScoreBoard(){
+        elements.gameScoreBoard.clear();
+
+        Memmory.player.players.forEach(player => {
+            elements.gameScoreBoard.addPlayer(player);
         });
     }
 
@@ -125,14 +156,14 @@ const Memmory = (() => {
             card1.deSelect()
             card2.deSelect();
 
-            elements.scoreBoard.deSelect(Memmory.turn);
+            elements.pairScoreBoard.deSelect(Memmory.turn);
 
             Memmory.turn = nextPlayer();
             while (Memmory.turn.state == "resigned") {
                 Memmory.turn = nextPlayer();
             }
 
-            elements.scoreBoard.select(Memmory.turn);
+            elements.pairScoreBoard.select(Memmory.turn);
 
             return
         }
@@ -155,11 +186,13 @@ const Memmory = (() => {
 
             setTimeout(() => {
                 winScreen.remove();
+                winner.gameScore++;
+                elements.gameScoreBoard.update(winner, winner.gameScore)
                 restartGame();
             }, 5000);
         }
 
-        elements.scoreBoard.update(Memmory.turn);
+        elements.pairScoreBoard.update(Memmory.turn, Memmory.turn.score);
     }
       
 
@@ -203,17 +236,17 @@ Memmory.config = (() => {
     }
     
     let amountOfCards = 16;
-    let amoutnOfPlayers = 2;
+    let amountOfPlayers = 2;
 
     function load(){
         Memmory.config.amountOfCards = elements.cardInput.value * 2;
-        Memmory.config.amoutnOfPlayers = parseInt(elements.playerInput.value);
+        Memmory.config.amountOfPlayers = parseInt(elements.playerInput.value);
     }
 
 
     return {
         amountOfCards,
-        amoutnOfPlayers,
+        amountOfPlayers,
         load: load
     }
 
@@ -230,6 +263,7 @@ Memmory.player = (() => {
             this.color = color;
             this.number = Player.players.length;
             this.score = 0;
+            this.gameScore = 0;
             this.state = "Playing";
             Player.players.push(this);
         }
