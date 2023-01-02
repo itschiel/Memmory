@@ -158,7 +158,7 @@ label {
     font-size: 1.5rem;
 }
 
-#restart {
+button {
     width: 200px;
     height: 50px;
     background-color: dodgerblue;

@@ -3,7 +3,8 @@ const Memmory = (() => {
     const elements = {
         scoreBoard: document.getElementsByTagName('score-board')[0],
         cardBoard:  document.getElementsByTagName('memmory-board')[0],
-        restartButton: document.getElementById("restart")
+        restartButton: document.getElementById("restart"),
+        resignButton: document.getElementById("resign")
     }
 
     let turn = '';
@@ -11,6 +12,22 @@ const Memmory = (() => {
     document.addEventListener("DOMContentLoaded", setupGame);
 
     elements.restartButton.addEventListener("click", restartGame);
+
+    elements.resignButton.addEventListener("click", () => {
+        Memmory.turn.remise();
+
+        let inGamePlayers = 0;
+        Memmory.player.players.forEach(player => {
+            if (player.state == "Playing") {inGamePlayers++}
+        });
+
+        if (inGamePlayers <= 1) {restartGame()}
+
+        elements.scoreBoard.deSelect(Memmory.turn)
+        Memmory.turn = nextPlayer();
+        elements.scoreBoard.select(Memmory.turn);
+    });
+
 
 
     function setupGame(){
@@ -51,13 +68,21 @@ const Memmory = (() => {
 
 
     function nextPlayer(){
-        let playerAmount = Memmory.player.players.length;
-        let currentIndex = Memmory.turn.number;
-        let nextIndex = ++currentIndex;
+        let nextPlayerIndex = Memmory.turn.number + 1;
+        let amountOfPlayers = Memmory.player.players.length;
+        let nextPlayer = null;
 
-        if (nextIndex > (playerAmount - 1)){nextIndex = 0;}
+        if (nextPlayerIndex > (amountOfPlayers - 1)){nextPlayerIndex = 0;}
 
-        return Memmory.player.players[nextIndex];
+        nextPlayer = Memmory.player.players[nextPlayerIndex];
+
+        while (nextPlayer.state == "resigned") {
+            nextPlayerIndex++
+            if (nextPlayerIndex > (amountOfPlayers - 1)){nextPlayerIndex = 0;}
+            nextPlayer = Memmory.player.players[nextPlayerIndex];
+        }
+
+        return nextPlayer;
     }
 
 
@@ -101,7 +126,12 @@ const Memmory = (() => {
             card2.deSelect();
 
             elements.scoreBoard.deSelect(Memmory.turn);
+
             Memmory.turn = nextPlayer();
+            while (Memmory.turn.state == "resigned") {
+                Memmory.turn = nextPlayer();
+            }
+
             elements.scoreBoard.select(Memmory.turn);
 
             return
@@ -187,11 +217,17 @@ Memmory.player = (() => {
             this.color = color;
             this.number = Player.players.length;
             this.score = 0;
+            this.state = "Playing";
             Player.players.push(this);
         }
 
-        resetScore(){
+        reset(){
             this.score = 0;
+            this.state = "Playing";
+        }
+
+        remise(){
+            this.state = "resigned";
         }
 
     }
