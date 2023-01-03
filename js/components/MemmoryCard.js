@@ -29,11 +29,6 @@ class MemmoryCard extends HTMLElement {
         this.classList.remove("selected");
     }
 
-    select(){
-        this.classList.add("selected");
-        this.flip();
-    }
-
     deSelect(){
         this.classList.remove("selected");
         this.flip();
@@ -41,23 +36,6 @@ class MemmoryCard extends HTMLElement {
 
     equals(MemmoryCard){
         return this.getAttribute("imageUrl") == MemmoryCard.getAttribute("imageUrl");
-    }
-
-    onClick(){
-        if(Memmory.isRunning){return};
-
-        this.select();
-
-        let board = document.getElementsByTagName("memmory-board")[0];
-        if(board.getSelectedCards().length != 2){return}
-
-        Memmory.isRunning = true;
-        setTimeout(() => {
-            Memmory.compareCards(board.getSelectedCards()[0], board.getSelectedCards()[1]);
-            Memmory.isRunning = false;
-        }, 1500);
-
-        return;
     }
 
     setImage(url){

@@ -19,10 +19,6 @@ class Board extends HTMLElement {
             element.firstChild.remove(); // wrm is dit nodig (bovenstaande comment)
         }
     }
-
-    getSelectedCards(){
-        return this.getElementsByClassName("selected");
-    } 
     
     allCardsFound() {
         let cards = this.children;
