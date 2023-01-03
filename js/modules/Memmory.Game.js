@@ -39,23 +39,14 @@ Memmory.Game = (() => {
     function loadConfig(){
         Memmory.config.parse();
         
-        loadCards(Memmory.config.amountOfCards);
-
         if(Memmory.config.amountOfPlayers != Players.length){
-
-            // adding players to game
-            Players = [];
-            for (let i = 0; i < Memmory.config.amountOfPlayers; i++) {
-                let color = Memmory.Data.colors[i];
-                let player = new Memmory.player(Players.length, color);
-                Players.push(player)
-            }
-
-            loadGameScoreBoard();
-            loadpairScoreBoard();
+            init();
+            return
         }
 
-        Memmory.Data.Elements.pairScoreBoard.toggleSlot(Turn.number);
+        loadCards(Memmory.config.amountOfCards);
+        loadpairScoreBoard();
+
         Turn = Players[0];
         Memmory.Data.Elements.pairScoreBoard.toggleSlot(Turn.number);
     }
