@@ -44,7 +44,7 @@ Memmory.Game = (() => {
             return
         }
 
-        loadCards(Memmory.config.amountOfCards);
+        loadCards();
         loadpairScoreBoard();
 
         Turn = Players[0];
@@ -188,7 +188,7 @@ Memmory.Game = (() => {
     function getPlayerWithHighestScore(){
         let playerWithHighestScore = Players[0];
         Players.forEach(player => {
-            if (player.score > playerWithHighestScore) {
+            if (player.score > playerWithHighestScore.score) {
                 playerWithHighestScore = player
             }
         });
@@ -215,7 +215,8 @@ Memmory.Game = (() => {
     return {
         init: init,
         resign: resign,
-        loadConfig: loadConfig
+        loadConfig: loadConfig,
+        restart: restart
     }
     
 })()
