@@ -21,7 +21,8 @@ Memmory.Data = (() => {
         pairScoreBoard: document.getElementById("pair-score"),
         cardBoard:  document.getElementsByTagName('memmory-board')[0],
         loadConfigButton: document.getElementById("load-config"),
-        resignButton: document.getElementById("resign")
+        resignButton: document.getElementById("resign"),
+        restartButton: document.getElementById("restart")
     }
 
 
